@@ -10,19 +10,19 @@ class Prybaby
     Prybaby.files_modified = 0
 
     process_args(args)
-
-    if self.mode == 'h' || self.mode == 'e'
-      puts "Sorry, I didn't recognize those arguments." if self.mode == 'e'
-      print_help
-    else
-      load_files
-    end
-
+    load_files
     print_stats
   end
 
+  def self.print_usage
+    puts "USAGE: prybaby [option]"
+  end
+
   def self.print_help
-    puts 'Help goes here!'
+    print_usage
+    puts "-r: Remove breakpoints from files."
+    puts "-c: Comment out lines with pry breakpoints."
+    puts "-u: Uncomment lines with pry breakpoints."
   end
 
   def self.process_args(args)
@@ -31,7 +31,7 @@ class Prybaby
     else
       args = args.gsub('-', '')
       self.mode = 'h' if args == '-help'
-      if args.length > 1 || args.scan(/u|r|c/).empty?
+      if args.length > 1 || args.scan(/u|r|c|h/).empty?
         self.mode = 'e'
       elsif 
         self.mode = args
@@ -46,6 +46,10 @@ class Prybaby
       Dir.glob(File.join(".", "**", "*.rb")).each { |file| comment_out_breakpoints(file) }
     elsif self.mode == 'u'
       Dir.glob(File.join(".", "**", "*.rb")).each { |file| remove_comments_from_breakpoints(file) }
+    elsif self.mode == 'e'
+      print_usage
+    elsif self.mode == 'h'
+      print_help
     end
   end
 
