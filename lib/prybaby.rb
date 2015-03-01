@@ -44,6 +44,8 @@ class Prybaby
       Dir.glob(File.join(".", "**", "*.rb")).each { |file| remove_breakpoints(file) }
     elsif self.mode == 'c'
       Dir.glob(File.join(".", "**", "*.rb")).each { |file| comment_out_breakpoints(file) }
+    elsif self.mode == 'u'
+      Dir.glob(File.join(".", "**", "*.rb")).each { |file| remove_comments_from_breakpoints(file) }
     end
   end
 
@@ -72,10 +74,13 @@ class Prybaby
     temp_file = Tempfile.new('tempfile')
 
     open(file, 'r').each do |l|
-      if l.include?('binding.pry')
+      if l.strip[0] == '#'
+        temp_file << l
+      elsif l.include?('binding.pry')
         self.lines_modified += 1
         file_changed = true
-        temp_file << "\# #{l}"
+
+        temp_file << "#{' ' * l.index('binding.pry')}\# #{l.strip}"
       else
         temp_file << l
       end
@@ -87,15 +92,16 @@ class Prybaby
   end
 
   def self.remove_comments_from_breakpoints(file)
-    self.word = 'commented out'
+    self.word = 'uncommented'
     file_changed = false
     temp_file = Tempfile.new('tempfile')
 
     open(file, 'r').each do |l|
-      if l.include?('binding.pry')
+      if l.include?('binding.pry') && l.include?('#')
+        spaces = l.index('#')
+        temp_file << "#{' ' * spaces}#{l[spaces + 2..l.length]}"
         self.lines_modified += 1
         file_changed = true
-        temp_file << "\# #{l}"
       else
         temp_file << l
       end
@@ -113,5 +119,4 @@ class Prybaby
       puts "#{self.lines_modified} lines were #{self.word} in #{self.files_modified} files."
     end
   end
-
 end
