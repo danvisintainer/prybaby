@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 
-# require_all 'lib'
 require 'fileutils'
 require 'tempfile'
 require 'prybaby'
