@@ -27,7 +27,7 @@ class Prybaby
 
   def self.process_args(args)
     if args == nil
-      self.mode = 'r'
+      self.mode = 'c'
     else
       args = args.gsub('-', '')
       self.mode = 'h' if args == '-help'
@@ -84,7 +84,7 @@ class Prybaby
         self.lines_modified += 1
         file_changed = true
 
-        temp_file << "#{' ' * l.index('binding.pry')}\# #{l.strip}"
+        temp_file << "#{' ' * l.index('binding.pry')}\# #{l.strip}\n"
       else
         temp_file << l
       end

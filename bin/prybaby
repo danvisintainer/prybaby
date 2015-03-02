@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+# require_all 'lib'
+require 'fileutils'
+require 'tempfile'
 require 'prybaby'
-require 'pry'
 puts Prybaby.go(ARGV[0])
