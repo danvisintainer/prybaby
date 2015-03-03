@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'prybaby'
-  s.version     = '0.0.2'
+  s.version     = '0.0.2.1'
   s.date        = '2015-03-01'
   s.summary     = "Prybaby"
   s.description = "A simple gem that quickly removes pry breakpoints from code"
