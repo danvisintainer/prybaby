@@ -12,7 +12,7 @@ Just run `gem install prybaby` to get it installed.
 
 ## Using it
 
-In your terminal, just run `prybaby`. By default, it'll your current working directory, including subdirectories, for Ruby source files and comment out any line containing `binding.pry` in it. It'll put the `#` in the right place even if your code is indented, but your tabs must be made of spaces - this doesn't yet work for `\t` tabs (it'll just place the `#` at the start of the line). You can undo this by running Prybaby with `-u`, which will uncomment the commented-out lines (Prybaby will only uncomment a line with `binding.pry` in it).
+In your terminal, just run `prybaby`. By default, it'll search your current working directory, including subdirectories, for Ruby source files and comment out any line containing `binding.pry` in it. It'll put the `#` in the right place even if your code is indented, but your tabs must be made of spaces - this doesn't yet work for `\t` tabs (it'll just place the `#` at the start of the line). You can undo this by running Prybaby with `-u`, which will uncomment the commented-out lines (Prybaby will only uncomment a line with `binding.pry` in it).
 
 Invoking `-r` will search for any instances of `binding.pry` and remove them. Note that **it will remove the entire line** that a pry breakpoint is found on, even if the breakpoint instruction is inside a comment. 
 
