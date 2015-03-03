@@ -59,7 +59,7 @@ class Prybaby
     temp_file = Tempfile.new('tempfile')
 
     open(file, 'r').each do |l|
-                     # if l.include?('binding.pry')
+      if l.include?('binding.pry')
         self.lines_modified += 1
         file_changed = true
       else
@@ -82,11 +82,11 @@ class Prybaby
     open(file, 'r').each do |l|
       if l.strip[0] == '#'
         temp_file << l
-                        # elsif l.include?('binding.pry')
+      elsif l.include?('binding.pry')
         self.lines_modified += 1
         file_changed = true
 
-                                       # temp_file << "#{' ' * l.index('binding.pry')}\# #{l.strip}\n"
+        temp_file << "#{' ' * l.index('binding.pry')}\# #{l.strip}\n"
       else
         temp_file << l
       end
@@ -105,7 +105,7 @@ class Prybaby
     temp_file = Tempfile.new('tempfile')
 
     open(file, 'r').each do |l|
-                     # if l.include?('binding.pry') && l.include?('#')
+      if l.include?('binding.pry') && l.include?('#')
         spaces = l.index('#')
         temp_file << "#{' ' * spaces}#{l[spaces + 2..l.length]}"
         self.lines_modified += 1

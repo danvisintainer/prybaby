@@ -1,5 +1,8 @@
 # Prybaby Changelog
 
+## v0.0.2.2 3/3/2015
+- Fix runtime error from previous update
+
 ## v0.0.2.1 3/3/2015
 - Fixed error in shell output
 
